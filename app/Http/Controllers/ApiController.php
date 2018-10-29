@@ -21,8 +21,7 @@ class ApiController extends Controller
         } else {
 
             try {
-                $id = User::insertGetId($request->all());
-                $request->session()->put('id', $id);
+                User::create($request->all());
                 $message = "Successfully saved";
 
             } catch (\Exception $exception) {
@@ -100,14 +99,22 @@ class ApiController extends Controller
                 'receive_amount' => $receive_amount
             );
             $values = $array_value;
-            try {
-                Repayment::create($array_value);
-                $message = "Successfully saved";
 
-            } catch (\Exception $exception) {
+            $result = Repayment::where('installment', $request['installment'])->where('loan_id', $request['loan_id'])->first();
+            if (is_null($result)) {
+                try {
+                    Repayment::create($array_value);
+                    $message = "Successfully saved";
+
+                } catch (\Exception $exception) {
+                    $status = 0;
+                    $message = "There is an Error " . $exception->getMessage();
+                }
+            }else{
                 $status = 0;
-                $message = "There is an Error " . $exception->getMessage();
+                $message = "Already Paid this installment ";
             }
+
         }
 
         $data = [
