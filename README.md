@@ -11,21 +11,27 @@ Run given command
 
 Done!
 
-##API
+###API
 #### New USER API
+```
 HTTP Request: Post
 Parameters: email, name, password
 url: /user/save
+```
 
 #### New Loan API
+```
 HTTP Request: Post
 Parameters: user_id, amount, duration, loan_rate
 url: /loan/save
+```
 
 #### Repayment API
+```
 HTTP Request: Post
 Parameters: user_id, loan_id, installment, receive_amount
 url: /repayment/save
+```
 
 Note: If the user has taken loan for 5 months, then the installment will be 1, 2, 3, 4, 5
 
