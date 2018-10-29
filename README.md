@@ -11,7 +11,7 @@ Run given command
 
 Done!
 
-###API
+##API
 #### New USER API
 ```
 HTTP Request: Post
